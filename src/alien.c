@@ -90,7 +90,7 @@ static int luaL_typerror (lua_State *L, int narg, const char *tname) {
 #define lua_setuservalue lua_setfenv
 #define lua_getuservalue lua_getfenv
 
-static void *luaL_testudata(lua_State *L, int ud, const char *tname) {
+static void *luaL_alientestudata(lua_State *L, int ud, const char *tname) {
   void *p = lua_touserdata(L, ud);
   if(p == NULL) return NULL;
   if(!lua_getmetatable(L, ud)) return NULL;
@@ -372,7 +372,7 @@ static alien_Buffer *alien_checkbuffer(lua_State *L, int index) {
 static void *alien_touserdata(lua_State *L, int index) {
   void *ud = lua_touserdata(L, index);
   if(!ud) return NULL;
-  return luaL_testudata(L, index, ALIEN_BUFFER_META) ? ((alien_Buffer *)ud)->p : ud;
+  return luaL_alientestudata(L, index, ALIEN_BUFFER_META) ? ((alien_Buffer *)ud)->p : ud;
 }
 
 static void *alien_checknonnull(lua_State *L, int index) {
